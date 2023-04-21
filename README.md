@@ -14,7 +14,7 @@ execute jobs asynchronously using [Apache Kafka](https://kafka.apache.org/). It 
 Start your Kafka instance. 
 
 ```shell
-docker run -p 9092:9092 -e ADV_HOST=127.0.0.1 lensesio/fast-data-dev
+docker run -p 9092:9092 <fix this>
 ```
 
 
