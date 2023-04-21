@@ -1,5 +1,3 @@
-import sys
-sys.path.append('/Users/arushisharma/anaconda3/lib/python3.10/site-packages')
 # from pkg_resources import get_distribution
 
 from kafka_wrapper.job import Job
