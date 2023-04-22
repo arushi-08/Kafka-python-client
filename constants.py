@@ -1,0 +1,3 @@
+BOOTSTRAP_SERVER = "127.0.0.1:9092"
+GROUP_ID = "group"
+TOPIC = "topic"
