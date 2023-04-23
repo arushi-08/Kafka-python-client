@@ -14,4 +14,4 @@ producer = KafkaProducer(bootstrap_servers=BOOTSTRAP_SERVER)
 buffer = Buffer(topic=TOPIC, producer=producer)
 
 # Enqueue a function call.
-job = buffer.enqueue(add, 1, 2)
+job = buffer.push(add, 1, 2)
