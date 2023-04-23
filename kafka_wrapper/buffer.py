@@ -8,7 +8,7 @@ from kafka import KafkaProducer
 from kafka_wrapper.job import Job
 
 class Buffer:
-    """Enqueues function calls in Kafka topics as :doc:`jobs <job>`."""
+    """Pushes function calls in Kafka topics as :doc:`jobs <job>`."""
 
     def __init__(
         self,
@@ -65,8 +65,8 @@ class Buffer:
         """Return the default job timeout threshold in seconds."""
         return self._timeout
 
-    def enqueue(self, obj, *args, **kwargs):
-        """Enqueue a function call or a :doc:`job <job>`"""
+    def push(self, obj, *args, **kwargs):
+        """Push a function call or a :doc:`job <job>`"""
         timestamp = int(time.time() * 1000)
 
         if isinstance(obj, Job):
@@ -112,7 +112,7 @@ class Buffer:
             key=key,
             partition=part,
         )
-        self._logger.info(f"Enqueueing {job} ...")
+        self._logger.info(f"Pushing {job} ...")
         self._producer.send(
             self._topic,
             value=self._serializer(job),

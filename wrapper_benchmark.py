@@ -21,7 +21,7 @@ def python_kafka_producer_performance():
     
     producer_start = time.time()
     for i in range(msg_count):
-        buffer.enqueue(job, msg_payload)
+        buffer.push(job, msg_payload)
         
     return time.time() - producer_start
 

@@ -9,7 +9,7 @@ producer = KafkaProducer(bootstrap_servers=BOOTSTRAP_SERVER)
 
 # Set up a queue.
 buffer = Buffer(topic=TOPIC, producer=producer)
-# Enqueue a function call.
+# push a function call.
 def multiply(a, b):
     return a * b
 def sum(a, b):
@@ -48,12 +48,12 @@ def dummy_main():
     [job1(), job2()]
     print("Main completed")
 
-# job = buffer.enqueue(requests.get, "https://google.com")
-job = buffer.enqueue(sum, 2, 5) # 10 # 7
-# job = buffer.using(partition=1).enqueue(sum, 3, 5) # 15 # 8
-# job = buffer.using(partition=2).enqueue(sum, 4, 5) # 20 # 9
-# job = buffer.using(partition=3).enqueue(sum, 5, 5) # 25 # 10
-# job = buffer.enqueue(asyncio.run, dummy_main())
-# job = buffer.enqueue(dummy_main)
+# job = buffer.push(requests.get, "https://google.com")
+job = buffer.push(sum, 2, 5) # 10 # 7
+# job = buffer.using(partition=1).push(sum, 3, 5) # 15 # 8
+# job = buffer.using(partition=2).push(sum, 4, 5) # 20 # 9
+# job = buffer.using(partition=3).push(sum, 5, 5) # 25 # 10
+# job = buffer.push(asyncio.run, dummy_main())
+# job = buffer.push(dummy_main)
 # You can also specify the job timeout, Kafka message key and partition.
-# job = buffer.using(timeout=5, key=b"foo", partition=0).enqueue(requests.get, "https://google.com")
+# job = buffer.using(timeout=5, key=b"foo", partition=0).push(requests.get, "https://google.com")
