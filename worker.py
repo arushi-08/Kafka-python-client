@@ -12,7 +12,7 @@ formatter = logging.Formatter(
 )
 stream_handler = logging.StreamHandler()
 stream_handler.setFormatter(formatter)
-logger = logging.getLogger("kq.worker")
+logger = logging.getLogger("kafka_wrapper.worker")
 logger.setLevel(logging.DEBUG)
 logger.addHandler(stream_handler)
 

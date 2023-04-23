@@ -1,6 +1,7 @@
 from kafka import KafkaConsumer
+from constants import TOPIC
 
-consumer = KafkaConsumer("my_topic")
+consumer = KafkaConsumer(TOPIC)
 
 print("Starting consumer...")
 for msg in consumer:

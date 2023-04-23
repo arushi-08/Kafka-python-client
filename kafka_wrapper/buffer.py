@@ -7,7 +7,7 @@ from kafka import KafkaProducer
 
 from kafka_wrapper.job import Job
 
-class Queue:
+class Buffer:
     """Enqueues function calls in Kafka topics as :doc:`jobs <job>`."""
 
     def __init__(
