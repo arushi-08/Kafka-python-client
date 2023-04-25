@@ -1,8 +1,6 @@
 import logging
-
 import dill
-from kafka import KafkaConsumer
-
+from confluent_kafka import Consumer
 from kafka_wrapper import Worker
 from constants import BOOTSTRAP_SERVER, GROUP_ID, TOPIC
 
@@ -23,13 +21,16 @@ def deserializer(serialized):
 
 
 if __name__ == "__main__":
-    consumer = KafkaConsumer(
-        bootstrap_servers=BOOTSTRAP_SERVER,
-        group_id=GROUP_ID,
-        enable_auto_commit=True,
-        auto_offset_reset="latest",
-    )
+    conf = {'bootstrap.servers': BOOTSTRAP_SERVER,
+            'group.id': GROUP_ID,
+            'session.timeout.ms': 6000,
+            'default.topic.config': {
+                'auto.offset.reset': 'earliest'
+            }
+    }
+    consumer = Consumer(**conf)
     worker = Worker(
-        topic=TOPIC, consumer=consumer, deserializer=deserializer
+        topic=TOPIC, consumer=consumer, config=conf, deserializer=deserializer
     )
-    worker.start_process()
+    page_views = {}
+    worker.start_process(page_views)

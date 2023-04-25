@@ -1,10 +1,11 @@
+import time
 import _thread
 import logging
 import threading
 import traceback
 
 import dill
-from kafka import KafkaConsumer
+from confluent_kafka import Consumer, KafkaError
 
 from kafka_wrapper.job import Job
 from kafka_wrapper.message import Message
@@ -16,13 +17,14 @@ class Worker:
     def __init__(
         self,
         topic: str,
-        consumer: KafkaConsumer,
+        consumer: Consumer,
+        config = {},
         deserializer = None,
         logger = None,
     ):
         self._topic = topic
-        self._hosts = consumer.config["bootstrap_servers"]
-        self._group = consumer.config["group_id"]
+        self._hosts = config["bootstrap.servers"]
+        self._group = config["group.id"]
         self._consumer = consumer
         if deserializer:
             self._deserializer = deserializer
@@ -31,7 +33,7 @@ class Worker:
         if logger:
             self._logger = logger
         else:
-            self._logger = logging.getLogger("kq.worker")
+            self._logger = logging.getLogger("kafka_wrapper.worker")
 
     def __repr__(self) -> str:
         """Return the string representation of the worker."""
@@ -43,15 +45,15 @@ class Worker:
         except Exception:
             pass
 
-    def _process_message(self, msg: Message) -> None:
+    def _process_message(self, msg: Message, *args) -> None:
         """De-serialize the message and execute the job."""
         self._logger.info(
             "Processing Message(topic={}, partition={}, offset={}) ...".format(
-                msg.topic, msg.partition, msg.offset
+                msg.topic(), msg.partition(), msg.offset()
             )
         )
         try:
-            job = self._deserializer(msg.value)
+            job = self._deserializer(msg.value())
             job_repr = get_call_repr(job.func, *job.args, **job.kwargs)
 
         except Exception as err:
@@ -66,7 +68,10 @@ class Worker:
             else:
                 timer = None
             try:
-                res = job.func(*job.args, **job.kwargs)
+                if args:
+                    res = job.func(args[0], *job.args, **job.kwargs)
+                else:
+                    res = job.func(args[0], *job.args, **job.kwargs)
             except KeyboardInterrupt:
                 self._logger.error(f"Job {job.id} timed out or was interrupted")
                 assert isinstance(job, Job)
@@ -97,18 +102,43 @@ class Worker:
         """Return the deserializer function."""
         return self._deserializer
 
-    def start(
-        self, max_messages = None, commit_offsets = True
+    def start_process(
+        self, *args, max_messages = None, commit_offsets = True, test=False,
     ):
         """Start processing Kafka messages and executing jobs."""
+        
         self._logger.info(f"Started {self}")
 
         self._consumer.unsubscribe()
-        self._consumer.subscribe([self.topic])
+        if test:
+            msg_consumed_count = 0
+            consumer_start = time.time()
+            self._consumer.subscribe([self.topic])
+            while True:
+                msg = self._consumer.poll(1)
+                if msg:
+                    msg_consumed_count += 1
+                
+                if msg_consumed_count >= max_messages:
+                    break
+            consumer_timing = time.time() - consumer_start
+            self._consumer.close() 
+            return consumer_timing
 
+        self._consumer.subscribe([self.topic])
         messages_processed = 0
+
         while max_messages is None or messages_processed < max_messages:
-            record = next(self._consumer)
+            # record = next(self._consumer)
+            record = self._consumer.poll(1.0)
+            if record is None:
+                continue
+            if record.error():
+                if record.error().code() == KafkaError._PARTITION_EOF:
+                    self._logger.error('End of partition reached')
+                else:
+                    self._logger.error('Error: %s' % record.error())
+                    
             message = Message(
                 topic=record.topic,
                 partition=record.partition,
@@ -116,11 +146,16 @@ class Worker:
                 key=record.key,
                 value=record.value,
             )
-            self._process_message(message)
+            if args:
+                self._process_message(message, args[0])
+            else:
+                self._process_message(message)
 
             if commit_offsets:
                 self._consumer.commit()
 
             messages_processed += 1
 
+        self._logger.info(f"Processed {messages_processed} Messages")
+        
         return messages_processed
