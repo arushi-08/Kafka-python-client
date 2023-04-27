@@ -125,7 +125,7 @@ class Buffer:
         return job
 
 
-def test_push(self, msg_payload, total_producer_send_time, total_job_creation_time, obj, *args, **kwargs):
+    def test_push(self, msg_payload, total_producer_send_time, total_job_creation_time, obj, *args, **kwargs):
         """Push a function call or a job"""
         timestamp = int(time.time() * 1000)
 
