@@ -69,13 +69,13 @@ python confluent_consumer.py
 [INFO] Starting Worker(hosts=127.0.0.1:9092 topic=page-views, group=group) ...
 ```
 
-2nd Consumer:
+2nd Worker:
 ```shell
 python confluent_consumer_2.py
 [INFO] Starting Worker(hosts=127.0.0.1:9092 topic=page-views, group=group) ...
 ```
 
-3nd Consumer:
+3nd Worker:
 ```shell
 python confluent_consumer_3.py
 [INFO] Starting Worker(hosts=127.0.0.1:9092 topic=page-views, group=group) ...
