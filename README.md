@@ -1,7 +1,8 @@
 # Confluent Kafka Python Client Wrapper for Python
 
 This is a lightweight Python library which lets you push and
-execute jobs asynchronously using [Apache Kafka](https://kafka.apache.org/). It uses
+execute jobs asynchronously using [Apache Kafka](https://kafka.apache.org/). \
+It uses
 [confluent-kafka-python](https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html) under the hood.
 
 ## Requirements
