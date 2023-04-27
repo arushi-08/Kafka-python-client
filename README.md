@@ -12,7 +12,7 @@ It uses
 
 ## Getting Started
 
-Start your Kafka instance. 
+Start the Kafka instance. 
 
 ```shell
 docker run -p 9092:9092 <fix this>
@@ -47,7 +47,7 @@ confluent_python_kafka_consumer         4.192662
  ## Demo: Real-time Calculation of Page Views of our website
  
  Problem statement: A real-time dashboard that displays the number of page views per second for a website. 
-The website generates a high volume of page views, and you want to process them in real-time.
+The website generates a high volume of page views, and we want to process them in real-time.
 
 
 Setup: \
