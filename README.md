@@ -16,9 +16,9 @@ The website generates a high volume of page views, and you want to process them 
 
 
 Setup: \
-Trigger_Requests.py : simulates 1000 users requesting our website.
-confluent_kafka_producer_flask.py: sends the “page view” events in real-time to Kafka Server. 
-confluent_consumer.py: will call the Worker class and consume page view events.
+Trigger_Requests.py : simulates 1000 users requesting our website. \
+confluent_kafka_producer_flask.py: sends the “page view” events in real-time to Kafka Server.  \
+confluent_consumer.py: will call the Worker class and consume page view events. \
 Each consumer instance processes a subset of the messages.
 
 
