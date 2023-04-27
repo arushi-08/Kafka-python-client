@@ -69,6 +69,18 @@ python confluent_consumer.py
 [INFO] Starting Worker(hosts=127.0.0.1:9092 topic=page-views, group=group) ...
 ```
 
+2nd Consumer:
+```shell
+python confluent_consumer_2.py
+[INFO] Starting Worker(hosts=127.0.0.1:9092 topic=page-views, group=group) ...
+```
+
+3nd Consumer:
+```shell
+python confluent_consumer_3.py
+[INFO] Starting Worker(hosts=127.0.0.1:9092 topic=page-views, group=group) ...
+```
+
 To create a consumer group, running multiple consumer instances that will execute subset of jobs, we need to increase the number of partitions. Following is example command that increases number of partitions to 3 of the page-views Kafka topic.
 
 ```shell
