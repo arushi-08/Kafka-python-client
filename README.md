@@ -43,5 +43,4 @@ To create a consumer group, running multiple consumer instances that will execut
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/gzsFujHQkUU/0.jpg)](https://youtu.be/gzsFujHQkUU)
 
 
-1:22][INFO] Job e68e7a40b4944ac18f4c3926f31acf07 returned: 15
 ```
