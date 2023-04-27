@@ -11,16 +11,6 @@ It uses
 * Python 3.10+
 
 ## Getting Started
-Problem statement: A real-time dashboard that displays the number of page views per second for a website. 
-The website generates a high volume of page views, and you want to process them in real-time.
-
-
-Setup: \
-Trigger_Requests.py : simulates 1000 users requesting our website. \
-confluent_kafka_producer_flask.py: sends the “page view” events in real-time to Kafka Server.  \
-confluent_consumer.py: will call the Worker class and consume page view events. \
-Each consumer instance processes a subset of the messages.
-
 
 Start your Kafka instance. 
 
@@ -56,7 +46,16 @@ confluent_python_kafka_consumer         4.192662
  
  ## Demo: Real-time Calculation of Page Views of our website
  
- 
+ Problem statement: A real-time dashboard that displays the number of page views per second for a website. 
+The website generates a high volume of page views, and you want to process them in real-time.
+
+
+Setup: \
+Trigger_Requests.py : simulates 1000 users requesting our website. \
+confluent_kafka_producer_flask.py: sends the “page view” events in real-time to Kafka Server.  \
+confluent_consumer.py: will call the Worker class and consume page view events. \
+Each consumer instance processes a subset of the messages.
+
  Start the buffer. This will connect to the KafkaProducer client:
 
 ```shell
