@@ -36,7 +36,12 @@ To create a consumer group, running multiple consumer instances that will execut
 ```shell
  bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic page-views --partitions 3
  ```
+ 
+ ## Demo
+ 
 
-[INFO] Executing job e68e7a40b4944ac18f4c3926f31acf07: __main__.multiply(3, 5)
-[2023-04-21 00:31:22][INFO] Job e68e7a40b4944ac18f4c3926f31acf07 returned: 15
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/gzsFujHQkUU/0.jpg)](https://youtu.be/gzsFujHQkUU)
+
+
+1:22][INFO] Job e68e7a40b4944ac18f4c3926f31acf07 returned: 15
 ```
