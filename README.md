@@ -15,7 +15,7 @@ Problem statement: A real-time dashboard that displays the number of page views 
 The website generates a high volume of page views, and you want to process them in real-time.
 
 
-Setup:
+Setup: \
 Trigger_Requests.py : simulates 1000 users requesting our website.
 confluent_kafka_producer_flask.py: sends the “page view” events in real-time to Kafka Server. 
 confluent_consumer.py: will call the Worker class and consume page view events.
