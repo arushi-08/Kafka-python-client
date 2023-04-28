@@ -42,31 +42,6 @@ kafka-python-client-python-wrapper-1  | confluent_python_kafka_consumer         
 
 ```
  
- ## Performance Evaluation on Local Machine
- 
- ```shell
-python producer_benchmark.py
-Check total_producer_send_time 0.6862080097198486
-Processed 1000000 messsages in 4.16 seconds
-22.92 MB/s
-240303.52 Msgs/s
-producer_performance
-                                 time_in_seconds
-confluent_python_kafka_producer         4.161404
-```
-
- 
- ```shell
-python consumer_benchmark.py 
-[2023-04-27 18:02:40][INFO] Started Worker(hosts=127.0.0.1:9092, topic=page-views, group=3a66ae62-e547-11ed-808d-264d3686d37d)
-Processed 1000000 messsages in 4.19 seconds
-22.75 MB/s
-238511.94 Msgs/s
-consumer_performance
-                                 time_in_seconds
-confluent_python_kafka_consumer         4.192662
-```
- 
  
  ## Demo: Real-time Calculation of Page Views of our website
  
