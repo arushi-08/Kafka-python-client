@@ -12,13 +12,37 @@ It uses
 
 ## Getting Started
 
-Start the Kafka instance. 
+Build and start the docker containers. 
 
 ```shell
-docker run -p 9092:9092 <fix this>
+docker compose -up d
+```
+
+The performance benchmarks for producer and consumer can be viewed in the logs:
+
+```shell
+docker compose logs -f
+
+kafka-python-client-python-wrapper-1  | Processed 1000000 messsages in 7.19 seconds
+kafka-python-client-python-wrapper-1  | 13.26 MB/s
+kafka-python-client-python-wrapper-1  | 139045.01 Msgs/s
+kafka-python-client-python-wrapper-1  | producer_performance
+kafka-python-client-python-wrapper-1  |                                  time_in_seconds
+kafka-python-client-python-wrapper-1  | confluent_python_kafka_producer         7.191916
+...
+kafka                                 | [2023-04-27 23:27:23,632] INFO [BrokerMetadataListener id=1] Starting to publish metadata events at offset 2. (kafka.server.metadata.BrokerMetadataListener)
+kafka                                 | [2023-04-27 23:27:23,633] INFO [BrokerMetadataPublisher id=1] Publishing initial metadata at offset OffsetAndEpoch(offset=2, epoch=1) with metadata.version 3.4-IV0. (kafka.server.metadata.BrokerMetadataPublisher)
+...
+kafka-python-client-python-wrapper-1  | Processed 1000000 messsages in 6.74 seconds
+kafka-python-client-python-wrapper-1  | 14.15 MB/s
+kafka-python-client-python-wrapper-1  | 148321.10 Msgs/s
+kafka-python-client-python-wrapper-1  | consumer_performance
+kafka-python-client-python-wrapper-1  |                                  time_in_seconds
+kafka-python-client-python-wrapper-1  | confluent_python_kafka_consumer         6.742129
+
 ```
  
- ## Performance Evaluation Scripts
+ ## Performance Evaluation on Local Machine
  
  ```shell
 python producer_benchmark.py
