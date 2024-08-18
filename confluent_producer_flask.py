@@ -31,8 +31,6 @@ buffer = Buffer(topic=TOPIC, producer=producer, config=conf)
 #     job = buffer.push(job, sum, i, 10)
 
 
-n_partition = 3
-n_jobs = 0
 
 def count_page_views(page_views, page):
     page_views[page] = page_views.get(page, 0) + 1
@@ -40,8 +38,8 @@ def count_page_views(page_views, page):
 
 @app.route('/')
 def index():
-    global n_partition
-    global n_jobs   
+    n_partition = 3
+    n_jobs = 0
     job = Job(
         func=count_page_views,
         args=request.path,
